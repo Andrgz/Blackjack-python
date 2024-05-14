@@ -6,7 +6,7 @@ deck = []
 player_hand = []
 house_hand = []
 
-def create_deck(card_faces, cards)
+def create_deck(card_faces, cards):
   deck = []
   for face in card_faces:
     for card in cards:
@@ -14,13 +14,15 @@ def create_deck(card_faces, cards)
   return deck
 
 # Dealing Cards
-def deal(deck, hand)
+def deal(deck, hand):
+  if not deck:
+    raise ValueError("Deck is Empty.")
   
   drawn_card = deck.pop()
   hand.append(drawn_card)
 
 # Calculating
-def hand_value(hand)
+def hand_value(hand):
   value = 0
   aces = 0
 
@@ -39,5 +41,10 @@ def hand_value(hand)
     value -= 10
     aces -= 1
 
-  
   return value
+
+
+# Make a welcome message, then select between playing, loan, display money left, win/loss ratio.
+def launch():
+  wallet = 250
+
