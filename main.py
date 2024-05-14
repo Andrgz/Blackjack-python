@@ -82,16 +82,36 @@ Select one of the optinons below to proceed.
 
       while hand_value(player_hand) <21:
         print(f"Your hand is: {player_hand}, {hand_value(player_hand)}")
-        decision = input("(1)Hit or (2)Stay")
+        decision = input("(1)Hit or (2)Stay: ")
         if decision == "1":
           deal(deck, player_hand)
         
-        elif decision == "2":
+        if decision == "2":
           break
 
-        if hand_value(player_hand) > 21
+        if hand_value(player_hand) > 21:
           break
           busted = True
+
+      
+      while hand_value(house_hand) < 21:
+        deal(deck, house_hand)
+
+      if busted:
+        print(f"You bust, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}! The House has won this round!")
+        losses =+ 1
+      
+      elif hand_value(player_hand) > hand_value(house_hand) and hand_value(player_hand) <= 21:
+        print(f"You've won, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}!")
+        wins =+ 1
+
+      elif hand_value(player_hand) == hand_value(house_hand):
+        print("Tie")
+
+      else:
+        print(f"House wins, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}")
+        losses =+ 1
+      
 
 
 
