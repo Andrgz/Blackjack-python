@@ -3,8 +3,6 @@ import random
 card_faces = ["Spades", "Hearts", "Diamonds", "Clubs"]
 cards = ["2", "3", "4", "5", "6", "7", "8", "9", "10", "King", "Queen", "Jack", "Ace"]
 deck = []
-player_hand = []
-house_hand = []
 
 def create_deck(card_faces, cards):
   deck = []
@@ -45,6 +43,86 @@ def hand_value(hand):
 
 
 # Make a welcome message, then select between playing, loan, display money left, win/loss ratio.
+
+
 def launch():
   wallet = 250
+  wins = 0
+  losses = 0
+  running = True
 
+  welcome_message = f"""Welcome to this simple Blackjack Game!
+You currently have: {wallet}! (If you run out you can take a loan :D)
+You have won: {wins} times & lost: {losses} times.
+Select one of the optinons below to proceed.
+"""
+  print(welcome_message)
+
+  while running:
+    print("(1): Play a Game")
+    print("(2): Take a loan")
+    print("(3): Show Stats")
+    print("(4): Reset Score")
+    print("(5): Exit")
+    choice = input("Select a number: ")
+    if choice == "1":
+      player_hand = []
+      house_hand = []
+      deck = create_deck(card_faces.copy(), cards.copy())
+      random.shuffle(deck)
+      print("Shuffling Deck...")
+
+      deal(deck, player_hand)
+      deal(deck, player_hand)
+      deal(deck, house_hand)
+      deal(deck, house_hand)
+      busted = False
+
+      print("dealing...")
+
+      while hand_value(player_hand) <21:
+        print(f"Your hand is: {player_hand}, {hand_value(player_hand)}")
+        decision = input("(1)Hit or (2)Stay")
+        if decision == "1":
+          deal(deck, player_hand)
+        
+        elif decision == "2":
+          break
+
+        if hand_value(player_hand) > 21
+          break
+          busted = True
+
+
+
+      
+
+    elif choice == "2":
+      if wallet >= 100:
+        print("You're too rich to take a loan!")
+      else:
+        wallet = 250
+        print(wallet)
+
+    elif choice == "3":
+      stats = f"""Your stats are as follows:
+Wins: {wins}
+Losses: {losses}
+Current Balance: {wallet}
+"""
+      print(stats)
+    
+    elif choice == "4":
+      wins = 0
+      losses = 0
+
+    elif choice == "5":
+      running = False
+
+  else:
+    print(f"Thanks for playing, your final stats were. Wins: {wins}, Losses: {losses}")
+
+
+
+if __name__ == "__main__":
+  launch()
