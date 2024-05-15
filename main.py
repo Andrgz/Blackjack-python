@@ -42,9 +42,6 @@ def hand_value(hand):
   return value
 
 
-# Make a welcome message, then select between playing, loan, display money left, win/loss ratio.
-
-
 def launch():
   wallet = 0
   wins = 0
@@ -66,54 +63,68 @@ Select one of the optinons below to proceed.
     print("(5): Exit")
     choice = input("Select a number: ")
     if choice == "1":
-      player_hand = []
-      house_hand = []
-      deck = create_deck(card_faces.copy(), cards.copy())
-      random.shuffle(deck)
-      print("Shuffling Deck...")
+      bet = int(input("How much do you wanna bet? "))
+      if bet >= 1 and bet <= wallet:
+        print(f"You have bet: {bet}")
+        player_hand = []
+        house_hand = []
+        deck = create_deck(card_faces.copy(), cards.copy())
+        random.shuffle(deck)
+        print("Shuffling Deck...")
 
-      deal(deck, player_hand)
-      deal(deck, player_hand)
-      deal(deck, house_hand)
-      deal(deck, house_hand)
-      busted = False
-
-      print("dealing...")
-
-      while hand_value(player_hand) <21:
-        print(f"Your hand is: {player_hand}, {hand_value(player_hand)}")
-        decision = input("(1)Hit or (2)Stay: ")
-        if decision == "1":
-          deal(deck, player_hand)
-        
-        if decision == "2":
-          break
-
-      if hand_value(player_hand) > 21:
-        busted = True
-
-      
-      while hand_value(house_hand) < 17:
+        deal(deck, player_hand)
+        deal(deck, player_hand)
         deal(deck, house_hand)
+        deal(deck, house_hand)
+        busted = False
 
-      if busted:
-        print(f"You bust, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}! The House has won this round!")
-        losses =+ 1
-      
-      elif hand_value(house_hand) > 21:
-        print(f"House Busts, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}!")
-        wins += 1
-      
-      elif hand_value(player_hand) > hand_value(house_hand) and hand_value(player_hand) <= 21:
-        print(f"You've won, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}!")
-        wins =+ 1
+        print("dealing...")
 
-      elif hand_value(player_hand) == hand_value(house_hand):
-        print("Tie")
+        while hand_value(player_hand) <21:
+          print(f"Your hand is: {player_hand}, {hand_value(player_hand)}")
+          decision = input("(1)Hit or (2)Stay: ")
+          if decision == "1":
+            deal(deck, player_hand)
+          
+          if decision == "2":
+            break
+
+        if hand_value(player_hand) > 21:
+          busted = True
+
+        
+        while hand_value(house_hand) < 17:
+          deal(deck, house_hand)
+
+        if busted:
+          print(f"You bust, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}! The House has won this round!")
+          losses += 1
+          wallet -= bet
+          print(f"You now have: {wallet} in your wallet")
+        
+        elif hand_value(house_hand) > 21:
+          print(f"House Busts, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}!")
+          wins += 1
+          wallet += bet
+          print(f"You now have: {wallet} in your wallet")
+        
+        elif hand_value(player_hand) > hand_value(house_hand) and hand_value(player_hand) <= 21:
+          print(f"You've won, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}!")
+          wins += 1
+          wallet += bet
+          print(f"You now have: {wallet} in your wallet")
+
+        elif hand_value(player_hand) == hand_value(house_hand):
+          print("Tie")
+
+        else:
+          print(f"House wins, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}")
+          losses += 1
+          wallet -= bet
+          print(f"You now have: {wallet} in your wallet")
 
       else:
-        print(f"House wins, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}")
-        losses =+ 1
+        print("Sorry there was a probleming starting the game. Are you poor?")
       
       
     elif choice == "2":
