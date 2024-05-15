@@ -89,17 +89,20 @@ Select one of the optinons below to proceed.
         if decision == "2":
           break
 
-        if hand_value(player_hand) > 21:
-          break
-          busted = True
+      if hand_value(player_hand) > 21:
+        busted = True
 
       
-      while hand_value(house_hand) < 21:
+      while hand_value(house_hand) < 17:
         deal(deck, house_hand)
 
       if busted:
         print(f"You bust, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}! The House has won this round!")
         losses =+ 1
+      
+      elif hand_value(house_hand) > 21:
+        print(f"House Busts, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}!")
+        wins += 1
       
       elif hand_value(player_hand) > hand_value(house_hand) and hand_value(player_hand) <= 21:
         print(f"You've won, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}!")
@@ -112,11 +115,7 @@ Select one of the optinons below to proceed.
         print(f"House wins, you had {hand_value(player_hand)}, house had {hand_value(house_hand)}")
         losses =+ 1
       
-
-
-
       
-
     elif choice == "2":
       if wallet >= 100:
         print("You're too rich to take a loan!")
