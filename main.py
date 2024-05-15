@@ -46,7 +46,7 @@ def hand_value(hand):
 
 
 def launch():
-  wallet = 250
+  wallet = 0
   wins = 0
   losses = 0
   running = True
@@ -121,7 +121,7 @@ Select one of the optinons below to proceed.
         print("You're too rich to take a loan!")
       else:
         wallet = 250
-        print(wallet)
+        print(f"Your loan was approved, you now have: {wallet}")
 
     elif choice == "3":
       stats = f"""Your stats are as follows:
@@ -134,6 +134,11 @@ Current Balance: {wallet}
     elif choice == "4":
       wins = 0
       losses = 0
+      reset_stats = f"""Your stats are now as follows:
+Wins: {wins}
+Losses: {losses}
+"""
+      print(reset_stats)
 
     elif choice == "5":
       running = False
